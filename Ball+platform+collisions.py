@@ -69,6 +69,9 @@ class Ball:
                 self.x = 15
             elif self.x > 790:
                 self.x = 785
+        
+    def move_along(self, obj):
+        self.y += obj.vy
     
     def stop(self):
         if abs(self.vx) < 1 and abs(self.vy) < 1 and self.y >= 600 - 2 * self.r:
@@ -170,7 +173,7 @@ class Platform:
     Это платформа. В зависимости от типа она будет обладать разными свойствами
     Самое простое свойство - прилипание
     """
-    def __init__(self, screen, color, x=550, y=300, l=100, w=20):
+    def __init__(self, screen, color, x=550, y=300, l=100, w=20, mov = False):
         self.screen = screen
         self.x = x
         self.y = y
@@ -178,7 +181,26 @@ class Platform:
         self.w = w
         self.phi = choice([math.pi/2, 0])
         self.color = color
+        self.moving = mov
+        self.time = 1
+        self.vy = 0
         
+    def movever(self):
+        if self.moving:
+            if self.time == 1:
+                self.vy = 0
+            elif 41 <= self.time <= 50:
+                self.vy = -5
+                self.y += self.vy
+            elif self.time == 51:
+                self.vy = 0 
+            elif 91 <= self.time <= 100:
+                self.vy = 5
+                self.y += self.vy
+            elif self.time == 101:
+                self.time = 0
+            self.time += 1
+                
     def precollision(self, obj):
         if self.x - self.w/2 - obj.r + obj.vx < obj.x < self.x - self.w/2 - obj.r and self.y + self.l/2 > obj.y-obj.vy/obj.vx*(self.x-self.w/2-obj.r-obj.x) > self.y - self.l/2:
             obj.vx = -1*(self.x - self.w/2 - obj.r - obj.x)
@@ -253,7 +275,7 @@ ball = Ball(screen, x = 400, y = 300)
 arrow = Guidance(screen, x = 400, y = 300)
 finish = Goal(screen)
 platforms.append(Platform(screen, color = RED))
-platforms.append(Platform(screen, color = RED, x=400, y=500, w=150, l=40))
+platforms.append(Platform(screen, color = RED, x=400, y=500, w=150, l=40, mov = True))
 elastic.append(Platform(screen, color = GREEN, x = 200, y = 300, w = 100, l = 30))
 disappearing.append(Platform(screen, color = BLUE, x = 600, y = 200, w = 100, l = 40))
 finished = False
@@ -280,6 +302,7 @@ while not finished:
     
     for pl in platforms:
         pl.precollision(ball)
+        pl.movever() 
         if pl.collision(ball):
             ball.sticking()
     
