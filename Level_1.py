@@ -16,14 +16,18 @@ def sign(x):
 """
 
 class Platform:
-    def __init__(self, screen, color, x=550, y=300, l=100, w=20, y_up = 0, y_down = 0, x_left = 0, x_right = 0):
+    def __init__(self, screen, color, x, y, l, w, y_up, y_down, x_left, x_right):
         self.screen = screen
         self.x = x
         self.y = y
         self.l = l
         self.w = w
-        self.vx = 2
-        self.vy = 2
+        self.x_left = x_left
+        self.x_right = x_right
+        self.y_up = y_up
+        self.y_down = y_down
+        self.vx = 0.5
+        self.vy = 0.5
         self.phi = choice([math.pi/2, 0])
         self.color = color
         
@@ -61,20 +65,29 @@ class Platform:
     """
     Это функция движения по вертикали
     """
-    def move_vertically(self, y_up, y_down):
+    def move_vertically(self):
         self.y += self.vy
-        if self.y <= y_up or self.y >= y_down:
+        if self.y <= self.y_up or self.y >= self.y_down:
             self.vy *= -1
     """
     Это функция движения по горизонтали
     """        
-    def move_horizontally(self, x_left, x_right):
+    def move_horizontally(self):
         self.x += self.vx
-        if self.x <= x_left or self.x >= x_right:
+        if self.x <= self.x_left or self.x >= self.x_right:
             self.vx *= -1
 
 RED = 0xFF0000
+BLUE = 0x0000FF
+YELLOW = 0xFFC91F
+WHITE  = (255, 255, 255)
+BLACK = (0, 0, 0)
+GREEN = 0x00FF00
+MAGENTA = 0xFF03B8
+CYAN = 0x00FFCC
+BLACK = (0, 0, 0)
 WHITE = 0xFFFFFF
+GREY = 0x7D7D7D
 
 WIDTH = 1280
 HEIGHT = 720
@@ -100,15 +113,77 @@ moving_v = []
 """
 Это двигающиеся горизонтально платформы
 """
+moving_h = []
+
+
+"""
+Это платформы смерти
+"""
+
+death = []
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-platforms.append(Platform(screen, color = RED, x = 640, y = 700, w = 1280, l = 20))
+"""
+Границы
+"""
+platforms.append(Platform(screen, color = RED, x = 640, y = 710, w = 1280, l = 20, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+platforms.append(Platform(screen, color = RED, x = 640, y = 10, w = 1280, l = 20, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+platforms.append(Platform(screen, color = RED, x = 10, y = 360, w = 20, l = 720, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+platforms.append(Platform(screen, color = RED, x = 1270, y = 360, w = 20, l = 720, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+
+platforms.append(Platform(screen, color = RED, x = 300, y = 450, w = 30, l = 560, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+platforms.append(Platform(screen, color = RED, x = 100, y = 435, w = 200, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+
+platforms.append(Platform(screen, color = RED, x = 200, y = 570, w = 200, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+platforms.append(Platform(screen, color = RED, x = 700, y = 250, w = 30, l = 500, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+platforms.append(Platform(screen, color = RED, x = 400, y = 250, w = 200, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+platforms.append(Platform(screen, color = RED, x = 540, y = 650, w = 30, l = 100, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+platforms.append(Platform(screen, color = RED, x = 540, y = 515, w = 100, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+platforms.append(Platform(screen, color = RED, x = 1000, y = 470, w = 30, l = 500, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+platforms.append(Platform(screen, color = RED, x = 1200, y = 400, w = 150, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+
+
+elastic.append(Platform(screen, color = GREEN, x = 750, y = 515, w = 150, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+elastic.append(Platform(screen, color = GREEN, x = 425, y = 685, w = 150, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+elastic.append(Platform(screen, color = GREEN, x = 655, y = 685, w = 150, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+elastic.append(Platform(screen, color = GREEN, x = 840, y = 685, w = 150, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+elastic.append(Platform(screen, color = GREEN, x = 1000, y = 70, w = 150, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+
+
+moving_v.append(Platform(screen, color = CYAN, x = 150, y = 250, w = 100, l = 30, x_left = 0, x_right = 0, y_up = 200, y_down = 350))
+moving_v.append(Platform(screen, color = CYAN, x = 750, y = 300, w = 30, l = 100, x_left = 0, x_right = 0, y_up = 100, y_down = 400))
+
+
+moving_h.append(Platform(screen, color = CYAN, x = 200, y = 100, w = 100, l = 30, x_left = 150, x_right = 500, y_up = 0, y_down = 0))
+
+
+death.append(Platform(screen, color = BLACK, x = 300, y = 50, w = 560, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+death.append(Platform(screen, color = BLACK, x = 550, y = 485, w = 270, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+death.append(Platform(screen, color = BLACK, x = 935, y = 335, w = 100, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+death.append(Platform(screen, color = BLACK, x = 1030, y = 550, w = 30, l = 100, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+
 
 finished = False
 while not finished:
     screen.fill(WHITE)
     for pl in platforms:
         pl.draw()
+    for d in death:
+        d.draw()
+    for m in moving_h:
+        m.draw()
+        m.move_horizontally()
+    for m in moving_v:
+        m.draw()
+        m.move_vertically()
+    for el in elastic:
+        el.draw()
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            finished = True
+    pygame.display.update()
+    pygame.display.flip()
 pygame.quit()
