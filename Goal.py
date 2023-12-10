@@ -2,7 +2,7 @@ import pygame
 
 """ Это цель. По достижении нее начинается новый уровень
 """
-
+GREY = 0x7D7D7D
 class Goal:
     def __init__(self, screen, x = 20, y = 20):
         self.screen = screen
