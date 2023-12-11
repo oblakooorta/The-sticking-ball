@@ -11,6 +11,8 @@ BLACK = (0, 0, 0)
 class Ball:    
     def __init__(self, screen: pygame.Surface, x = 40, y = 450):
         self.screen = screen
+        self.sx = x
+        self.sy = y
         self.x = x
         self.y = y
         self.r = 20
@@ -91,6 +93,8 @@ class Ball:
     """
     Это функция для смертельной платформы
     """
-    
+    def return_to_start(self):
+        self.x = self.sx
+        self.y = self.sy
     
     
