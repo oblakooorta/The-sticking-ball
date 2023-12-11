@@ -30,7 +30,7 @@ class Platform:
         self.vy = 0.5
         self.phi = choice([math.pi/2, 0])
         self.color = color
-        
+
     def precollision(self, obj):
         if self.x - self.w/2 - obj.r + obj.vx < obj.x < self.x - self.w/2 - obj.r and self.y + self.l/2 > obj.y-obj.vy/obj.vx*(self.x-self.w/2-obj.r-obj.x) > self.y - self.l/2:
             obj.vx = -1*(self.x - self.w/2 - obj.r - obj.x)
@@ -44,7 +44,7 @@ class Platform:
         elif self.y + self.l/2 + obj.r + obj.vy > obj.y > self.y + self.l/2 + obj.r and self.x + self.w/2 > obj.x-obj.vx/obj.vy*(self.y+self.l/2+obj.r-obj.y) > self.x - self.w/2:
             obj.vy = -1*(self.y - self.l/2 - obj.r - obj.y)
             return True
-        
+
     def collision(self, obj):
         if abs(obj.x - self.x) <= self.w/2 + obj.r and abs(obj.y - self.y) <= self.l/2 + obj.r:
             if (abs(self.x - obj.x) < (self.w/2 + obj.r)) and (abs(self.x - obj.x) > self.w/2):
@@ -55,13 +55,13 @@ class Platform:
             return True
     #FIXME
     #Тут возникает проблема при нулевой скрости и на углах. По какой-то причине шарик не прилипает
-    #Иногда случаются баги и шар "проваливается" внутрь платформы    
+    #Иногда случаются баги и шар "проваливается" внутрь платформы
     def draw(self):
         pygame.draw.rect(self.screen,
                          self.color,
                          (self.x - self.w/2, self.y - self.l/2,
                           self.w, self.l))
-        
+
     """
     Это функция движения по вертикали
     """
@@ -71,7 +71,7 @@ class Platform:
             self.vy *= -1
     """
     Это функция движения по горизонтали
-    """        
+    """
     def move_horizontally(self):
         self.x += self.vx
         if self.x <= self.x_left or self.x >= self.x_right:
@@ -180,7 +180,7 @@ while not finished:
         m.move_vertically()
     for el in elastic:
         el.draw()
-    
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
