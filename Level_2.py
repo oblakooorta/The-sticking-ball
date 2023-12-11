@@ -2,6 +2,9 @@ import pygame
 from random import choice
 import math
 
+from Ball import Ball
+from Guidance import Guidance
+from Goal import Goal
 
 def sign(x):
     if x > 0:
@@ -168,6 +171,9 @@ death.append(Platform(screen, color=BLACK, x=1020, y=210, w=20, l=380))
 
 elastic.append(Platform(screen, color=GREEN, x=900, y=280, w=40, l=100))
 
+ball = Ball(screen, 100, 500)
+arrow = Guidance(screen, 100, 100, ball)
+finish = Goal(screen, x=1140, y=100)
 
 finished = False
 while not finished:
@@ -186,10 +192,49 @@ while not finished:
         el.draw()
     for dis in disappearing:
         dis.draw()
+    ball.draw()
+    arrow.draw()
+    finish.draw()
+
+
+
+    for pl in platforms:
+        pl.precollision(ball)
+        if pl.collision(ball):
+            ball.sticking()
+
+    for el in elastic:
+        el.precollision(ball)
+        if el.collision(ball):
+            ball.jumping_back(el)
+
+    for dis in disappearing:
+        dis.precollision(ball)
+        if dis.collision(ball):
+            disappearing.remove(dis)
+            ball.fall(dis)
+
+    if finish.collision(ball):
+        win = True
+        finished = True
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
+        elif event.type == pygame.MOUSEMOTION:
+            arrow.targetting(event)
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            arrow.fire2_start(event, ball)
+        elif event.type == pygame.MOUSEBUTTONUP:
+            ball.jump(event, arrow)
+            arrow.fire2_end(event)
+
+    ball.move()
+    ball.stop()
+    arrow.update(ball)
+
+
     pygame.display.update()
     pygame.display.flip()
+    arrow.power_up()
 pygame.quit()

@@ -25,27 +25,27 @@ class Ball:
         if  not self.sticked:
             self.x += self.vx
             self.y -= 2 * self.vy
-            if self.x <= 790 and self.x >= 10:
+            if self.x <= 1270 and self.x >= 10:
                 self.vx = self.vx
             else:
                 self.vy =  0.8 * self.vy
                 self.vx = -0.8 * self.vx
-            if self.y <= 570 and self.y >=30:
+            if self.y <= 710 and self.y >=30:
                 self.vy -= 1
             else:
                 self.vy = -0.8 *self.vy
                 self.vx = 0.8 * self.vx
             if self.y < 30:
                 self.y = 35
-            elif self.y > 570:
-                self.y = 575
+            elif self.y > 710:
+                self.y = 715
             if self.x < 10:
                 self.x = 15
-            elif self.x > 790:
-                self.x = 785
+            elif self.x > 1270:
+                self.x = 1265
     
     def stop(self):
-        if abs(self.vx) < 1 and abs(self.vy) < 1 and self.y >= 600 - 2 * self.r:
+        if abs(self.vx) < 1 and abs(self.vy) < 1 and self.y >= 720 - 2 * self.r:
             self.vx = self.vy = 0
             self.sticked = True
 

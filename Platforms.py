@@ -16,7 +16,7 @@ def sign(x):
 """
 
 class Platform:
-    def __init__(self, screen, color, x=550, y=300, l=100, w=20, y_up = 0, y_down = 0, x_left = 0, x_right = 0):
+    def __init__(self, screen, color, x=550, y=300, l=100, w=20, y_up=0, y_down=0, x_left=0, x_right=0):
         self.screen = screen
         self.x = x
         self.y = y
