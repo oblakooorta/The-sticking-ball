@@ -31,7 +31,7 @@ pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 """
-Это обычные платформы
+Это обычные платформы.
 """
 platforms = []
 """
