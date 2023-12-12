@@ -4,11 +4,11 @@ import pygame
 """
 GREY = 0x7D7D7D
 class Goal:
-    def __init__(self, screen, x = 20, y = 20):
+    def __init__(self, screen, x, y):
         self.screen = screen
         self.x = x
         self.y = y
-        self.r = 10
+        self.r = 20
         self.color = GREY
     
     def collision(self, obj):

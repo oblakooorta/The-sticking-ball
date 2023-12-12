@@ -9,7 +9,7 @@ BLACK = (0, 0, 0)
 Также он будет менять силу прыжка в зависимости от зажатия мышки.
 """
 class Ball:    
-    def __init__(self, screen: pygame.Surface, x = 40, y = 450):
+    def __init__(self, screen: pygame.Surface, x, y):
         self.screen = screen
         self.sx = x
         self.sy = y

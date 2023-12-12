@@ -5,6 +5,8 @@ from random import choice
 import sys
 import time
 
+import Level_1
+
 FPS = 30
 
 RED = 0xFF0000
@@ -28,50 +30,51 @@ from Platforms import Platform
 from Goal import Goal
 from Menu import Menu
 
+
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 """
 Это обычные платформы.
 """
-platforms = []
+from Level_1 import platforms
 """
 Это упругие платформы
 """
-elastic = []
+from Level_1 import elastic
 """
 Это исчезающие платформы
 """
-disappearing = []
+from Level_1 import disappearing
 
 """
 Это движущиеся вертикально платформы
 """
 
-moving_v = []
+from Level_1 import moving_v
 
 """
 Это двигающиеся горизонтально платформы
 """
 
-moving_h = []
+from Level_1 import moving_h
 
-ball = Ball(screen, x=400, y=300)
-arrow = Guidance(screen, x=400, y=300, obj=ball)
-finish = Goal(screen)
-platforms.append(Platform(screen, color=RED))
-platforms.append(Platform(screen, color=RED, x=400, y=500, w=150, l=40))
-elastic.append(Platform(screen, color=GREEN, x=200, y=300, w=100, l=30))
-disappearing.append(Platform(screen, color=BLUE, x=600, y=200, w=100, l=40))
-moving_v.append(Platform(screen, color=BLACK, x=20, y=400, w=100, l=30))
-moving_h.append(Platform(screen, color=CYAN, x=400, y=400, w=100, l=30))
+from Level_1 import x_started, y_started, x_end, y_end
+
+ball = Ball(screen, x_started, y_started)
+arrow = Guidance(screen, x_started, y_started, obj=ball)
+finish = Goal(screen, x_end, y_end)
 
 start_button = Menu(540, 310, 200, 100, RED, "Начать")
 pause_button = Menu(1150, 30, 80, 40, RED, "Пауза")
+win_text = Menu(540, 260, 200, 100, RED, "Победа!")
+next_level = Menu(540, 450, 200, 100, RED, "Следующий уровень")
 
 finished = False
 game_started = False
 game_paused = False
+win = False
+points = 0
 
 while not finished:
     screen.fill(WHITE)
@@ -79,6 +82,8 @@ while not finished:
         start_button.draw(screen)
     else:
         pause_button.draw(screen)
+    if win:
+        points += 1
     if game_started:
         arrow.update(ball)
         arrow.draw()
@@ -87,15 +92,15 @@ while not finished:
 
         for mov in moving_v:
             mov.draw()
-            mov.move_vertically(y_up=300, y_down=500)
+            mov.move_vertically()
             mov.precollision(ball)
             if mov.collision(ball):
-                ball.sticked = True
+                ball.sticking()
                 ball.move_v(mov)
 
         for mov in moving_h:
             mov.draw()
-            mov.move_horizontally(x_left=300, x_right=500)
+            mov.move_horizontally()
             mov.precollision(ball)
             if mov.collision(ball):
                 ball.sticking()
@@ -119,9 +124,6 @@ while not finished:
             if dis.collision(ball):
                 disappearing.remove(dis)
                 ball.fall(dis)
-        arrow.power_up()
-        ball.move()
-        ball.stop()
 
         if finish.collision(ball):
             win = True
@@ -131,7 +133,11 @@ while not finished:
         game_started = not game_started
         game_paused = not game_paused
 
+    pygame.display.update()
+    pygame.display.flip()
+
     clock.tick(FPS)
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -147,13 +153,11 @@ while not finished:
         elif event.type == pygame.MOUSEBUTTONUP:
             ball.jump(event, arrow)
             arrow.fire2_end(event)
-
-    pygame.display.update()
-    pygame.display.flip()
+    arrow.power_up()
+    ball.move()
+    ball.stop()
 
 esc = False
-
-
 
 if win:
     screen.fill(WHITE)
