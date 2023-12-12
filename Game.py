@@ -59,6 +59,11 @@ from Level_1 import moving_v
 
 from Level_1 import moving_h
 
+"""
+Это платформы смерти
+"""
+from Level_1 import death
+
 from Level_1 import x_started, y_started, x_end, y_end
 
 ball = Ball(screen, x_started, y_started)
@@ -125,6 +130,13 @@ while not finished:
                 disappearing.remove(dis)
                 ball.fall(dis)
 
+        for d in death:
+            d.draw()
+            if d.collision(ball):
+                ball.x = x_started
+                ball.y = y_started
+
+
         if finish.collision(ball):
             win = True
             finished = True
@@ -145,11 +157,12 @@ while not finished:
         elif event.type == pygame.MOUSEMOTION:
             arrow.targetting(event)
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            arrow.fire2_start(event, ball)
             if start_button.rect.collidepoint(event.pos):
                 game_started = True
-            if pause_button.rect.collidepoint(event.pos):
+            elif pause_button.rect.collidepoint(event.pos):
                 game_paused = True
+            else:
+                arrow.fire2_start(event, ball)
         elif event.type == pygame.MOUSEBUTTONUP:
             ball.jump(event, arrow)
             arrow.fire2_end(event)
