@@ -36,6 +36,8 @@ class Platform:
         self.vy = 0.5
         self.phi = choice([math.pi / 2, 0])
         self.color = color
+        self.time = 0
+        self.coll = False
 
     def precollision(self, obj):
         if self.x - self.w / 2 - obj.r + obj.vx < obj.x < self.x - self.w / 2 - obj.r and self.y + self.l / 2 > obj.y - obj.vy / obj.vx * (
@@ -90,6 +92,10 @@ class Platform:
         self.x += self.vx
         if self.x <= self.x_left or self.x >= self.x_right:
             self.vx *= -1
+
+    def wait(self):
+        if self.coll == True:
+            self.time += 1
 
 
 RED = 0xFF0000
@@ -196,7 +202,10 @@ while not finished:
     arrow.draw()
     finish.draw()
 
-
+    for dis in disappearing:
+        dis.wait()
+        if dis.time == 41:
+            disappearing.remove(dis)
 
     for pl in platforms:
         pl.precollision(ball)
@@ -211,8 +220,11 @@ while not finished:
     for dis in disappearing:
         dis.precollision(ball)
         if dis.collision(ball):
-            disappearing.remove(dis)
-            ball.fall(dis)
+            dis.coll = True
+            ball.sticking()
+            if dis.time == 40:
+                disappearing.remove(dis)
+                ball.fall(dis)
 
     if finish.collision(ball):
         win = True
@@ -232,6 +244,7 @@ while not finished:
     ball.move()
     ball.stop()
     arrow.update(ball)
+
 
 
     pygame.display.update()
