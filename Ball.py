@@ -94,8 +94,10 @@ class Ball:
     Это функция для смертельной платформы
     """
     def return_to_start(self):
+        self.sticked = False
         self.x = self.sx
         self.y = self.sy
+        self.vx = self.vy = 0
 
     """
     Это функция для двигающейся вертикально платформы

@@ -226,6 +226,11 @@ while not finished:
                 disappearing.remove(dis)
                 ball.fall(dis)
 
+    for d in death:
+        d.precollision(ball)
+        if d.collision(ball):
+            ball.return_to_start()
+
     if finish.collision(ball):
         win = True
         finished = True
