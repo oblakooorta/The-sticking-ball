@@ -27,6 +27,7 @@ from Guidance import Guidance
 from Platforms import Platform
 from Goal import Goal
 
+
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
@@ -83,13 +84,15 @@ while not finished:
         mov.move_vertically(y_up=300, y_down=500)
         mov.precollision(ball)
         if mov.collision(ball):
-            ball.sticking()
+            ball.sticked = True
+            ball.move_v(mov)
     for mov in moving_h:
         mov.draw()
         mov.move_horizontally(x_left=300, x_right=500)
         mov.precollision(ball)
         if mov.collision(ball):
             ball.sticking()
+            ball.move_h(mov)
     pygame.display.update()
     pygame.display.flip()
 

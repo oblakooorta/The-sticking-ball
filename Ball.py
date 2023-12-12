@@ -96,5 +96,29 @@ class Ball:
     def return_to_start(self):
         self.x = self.sx
         self.y = self.sy
-    
-    
+
+    """
+    Это функция для двигающейся вертикально платформы
+    """
+    def move_v(self, obj):
+        self.sticked = True
+        self.y += obj.vy
+        if self.y <= obj.y_up or self.y >= obj.y_down:
+            self.vy *= -1
+
+    """
+    Это функция для движущейся горизонтально платформы
+    """
+    def move_h(self, obj):
+        self.sticked = True
+        self.x += obj.vx
+        if self.y <= obj.x_left or self.y >= obj.x_right:
+            self.vy *= -1
+
+    """
+    Функция для обновления координат
+    """
+
+    def move_update(self, obj):
+        self.vx = obj.vx
+        self.vy = obj.vy

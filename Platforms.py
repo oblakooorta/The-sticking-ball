@@ -24,6 +24,10 @@ class Platform:
         self.w = w
         self.vx = 2
         self.vy = 2
+        self.y_up = y_up
+        self.y_down = y_down
+        self.x_left = x_left
+        self.x_right = x_right
         self.phi = choice([math.pi/2, 0])
         self.color = color
         
