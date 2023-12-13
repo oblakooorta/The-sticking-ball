@@ -3,11 +3,16 @@ import pygame
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-"""
-Это меню. Оно позволяет начать игру
-"""
+
 class Menu:
+    """
+    A starting and pause menu
+    """
     def __init__(self, x, y, width, height, color, text):
+        """Set menu parameters
+
+        x:
+        """
         self.rect = pygame.Rect(x, y, width, height)
         self.color = color
         self.text = text

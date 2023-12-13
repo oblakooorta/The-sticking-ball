@@ -1,14 +1,20 @@
 import pygame
 
-import math
-from random import choice
-import sys
-import time
-
 import Level_1
+from Ball import Ball
+from Guidance import Guidance
+from Platforms import Platform
+from Goal import Goal
+from Menu import Menu
+from Level_1 import platforms
+from Level_1 import elastic
+from Level_1 import disappearing
+from Level_1 import moving_v
+from Level_1 import moving_h
+from Level_1 import death
+from Level_1 import x_started, y_started, x_end, y_end
 
 FPS = 30
-
 RED = 0xFF0000
 BLUE = 0x0000FF
 YELLOW = 0xFFC91F
@@ -24,50 +30,14 @@ GREY = 0x7D7D7D
 WIDTH = 1280
 HEIGHT = 720
 
-from Ball import Ball
-from Guidance import Guidance
-from Platforms import Platform
-from Goal import Goal
-from Menu import Menu
-
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
-"""
-Это обычные платформы.
-"""
-from Level_1 import platforms
-"""
-Это упругие платформы
-"""
-from Level_1 import elastic
-"""
-Это исчезающие платформы
-"""
-from Level_1 import disappearing
 
-"""
-Это движущиеся вертикально платформы
-"""
-
-from Level_1 import moving_v
-
-"""
-Это двигающиеся горизонтально платформы
-"""
-
-from Level_1 import moving_h
-
-"""
-Это платформы смерти
-"""
-from Level_1 import death
-
-from Level_1 import x_started, y_started, x_end, y_end
 
 ball = Ball(screen, x_started, y_started)
-arrow = Guidance(screen, x_started, y_started, obj=ball)
+arrow = Guidance(screen, ball)
 finish = Goal(screen, x_end, y_end)
 
 start_button = Menu(540, 310, 200, 100, RED, "Начать")
@@ -128,14 +98,13 @@ while not finished:
             dis.precollision(ball)
             if dis.collision(ball):
                 disappearing.remove(dis)
-                ball.fall(dis)
+                ball.fall()
 
         for d in death:
             d.draw()
             if d.collision(ball):
                 ball.x = x_started
                 ball.y = y_started
-
 
         if finish.collision(ball):
             win = True
@@ -150,7 +119,6 @@ while not finished:
 
     clock.tick(FPS)
 
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -162,10 +130,10 @@ while not finished:
             elif pause_button.rect.collidepoint(event.pos):
                 game_paused = True
             else:
-                arrow.fire2_start(event, ball)
+                arrow.fire2_start(ball)
         elif event.type == pygame.MOUSEBUTTONUP:
             ball.jump(event, arrow)
-            arrow.fire2_end(event)
+            arrow.fire2_end()
     arrow.power_up()
     ball.move()
     ball.stop()

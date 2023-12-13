@@ -1,19 +1,15 @@
 import pygame
-from random import choice
-import math
 
 from Platforms import Platform
 
 RED = 0xFF0000
 BLUE = 0x0000FF
 YELLOW = 0xFFC91F
-WHITE  = (255, 255, 255)
+WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = 0x00FF00
 MAGENTA = 0xFF03B8
 CYAN = 0x00FFCC
-BLACK = (0, 0, 0)
-WHITE = 0xFFFFFF
 GREY = 0x7D7D7D
 
 WIDTH = 1280
@@ -61,40 +57,38 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 """
 Границы
 """
-platforms.append(Platform(screen, color = RED, x = 640, y = 710, w = 1280, l = 20, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-platforms.append(Platform(screen, color = RED, x = 640, y = 10, w = 1280, l = 20, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-platforms.append(Platform(screen, color = RED, x = 10, y = 360, w = 20, l = 720, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-platforms.append(Platform(screen, color = RED, x = 1270, y = 360, w = 20, l = 720, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+platforms.append(Platform(screen, RED, 640, 710, 1280, 20))
+platforms.append(Platform(screen, RED, 640, 10, 1280, 20))
+platforms.append(Platform(screen, RED, 10, 360, 20, 720))
+platforms.append(Platform(screen, RED, 1270, 360, 20, 720))
 
-platforms.append(Platform(screen, color = RED, x = 300, y = 450, w = 30, l = 560, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-platforms.append(Platform(screen, color = RED, x = 100, y = 435, w = 200, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+platforms.append(Platform(screen, RED, 300, 450, 30, 560))
+platforms.append(Platform(screen, RED, 100, 435, 200, 30))
 
-platforms.append(Platform(screen, color = RED, x = 200, y = 570, w = 200, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-platforms.append(Platform(screen, color = RED, x = 700, y = 250, w = 30, l = 500, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-platforms.append(Platform(screen, color = RED, x = 400, y = 250, w = 200, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-platforms.append(Platform(screen, color = RED, x = 540, y = 650, w = 30, l = 100, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-platforms.append(Platform(screen, color = RED, x = 540, y = 515, w = 100, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-platforms.append(Platform(screen, color = RED, x = 1000, y = 470, w = 30, l = 500, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-platforms.append(Platform(screen, color = RED, x = 1200, y = 400, w = 150, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-
-
-elastic.append(Platform(screen, color = GREEN, x = 750, y = 515, w = 150, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-elastic.append(Platform(screen, color = GREEN, x = 425, y = 685, w = 150, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-elastic.append(Platform(screen, color = GREEN, x = 655, y = 685, w = 150, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-elastic.append(Platform(screen, color = GREEN, x = 840, y = 685, w = 150, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-elastic.append(Platform(screen, color = GREEN, x = 1000, y = 70, w = 150, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+platforms.append(Platform(screen, RED, 200, 570, 200, 30))
+platforms.append(Platform(screen, RED, 700, 250, 30, 500))
+platforms.append(Platform(screen, RED, 400, 250, 200, 30))
+platforms.append(Platform(screen, RED, 540, 650, 30, 100))
+platforms.append(Platform(screen, RED, 540, 515, 100, 30))
+platforms.append(Platform(screen, RED, 1000, 470, 30, 500))
+platforms.append(Platform(screen, RED, 1200, 400, 150, 30))
 
 
-moving_v.append(Platform(screen, color = CYAN, x = 150, y = 250, w = 100, l = 30, x_left = 0, x_right = 0, y_up = 200, y_down = 350))
-moving_v.append(Platform(screen, color = CYAN, x = 750, y = 300, w = 30, l = 100, x_left = 0, x_right = 0, y_up = 100, y_down = 400))
+elastic.append(Platform(screen, GREEN, 750, 515, 150, 30))
+elastic.append(Platform(screen, GREEN, 425, 685, 150, 30))
+elastic.append(Platform(screen, GREEN, 655, 685, 150, 30))
+elastic.append(Platform(screen, GREEN, 840, 685, 150, 30))
+elastic.append(Platform(screen, GREEN, 1000, 70, 150, 30))
 
 
-moving_h.append(Platform(screen, color = CYAN, x = 200, y = 100, w = 100, l = 30, x_left = 150, x_right = 500, y_up = 0, y_down = 0))
+moving_v.append(Platform(screen, CYAN, 150, 250, 100, 30, y_up=200, y_down=350))
+moving_v.append(Platform(screen, CYAN, 750, 300, 30, 100, y_up=100, y_down=400))
 
 
-death.append(Platform(screen, color = BLACK, x = 300, y = 50, w = 560, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-death.append(Platform(screen, color = BLACK, x = 550, y = 485, w = 270, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-death.append(Platform(screen, color = BLACK, x = 935, y = 335, w = 100, l = 30, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
-death.append(Platform(screen, color = BLACK, x = 1030, y = 550, w = 30, l = 100, x_left = 0, x_right = 0, y_up = 0, y_down = 0))
+moving_h.append(Platform(screen, CYAN, 200, 100, 100, 30, x_left=150, x_right=500))
 
 
+death.append(Platform(screen, BLACK, 300, 50, 560, 30))
+death.append(Platform(screen, BLACK, 550, 485, 270, 30))
+death.append(Platform(screen, BLACK, 935, 335, 100, 30))
+death.append(Platform(screen, BLACK, 1030, 550, 30, 100))

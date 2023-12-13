@@ -1,6 +1,4 @@
 import pygame
-from random import choice
-import math
 
 def sign(x):
     if x > 0:
@@ -10,13 +8,27 @@ def sign(x):
     else:
         return -1
 
-"""
-Это платформа. В зависимости от типа она будет обладать разными свойствами
-Самое простое свойство - прилипание
-"""
 
 class Platform:
-    def __init__(self, screen, color, x, y, l, w, y_up=0, y_down=0, x_left=0, x_right=0):
+    """
+    This is paltform with which will interract ball
+    """
+    def __init__(self, screen, color, x, y, w, l, y_up=0, y_down=0, x_left=0, x_right=0):
+        """Set starting conditions
+
+        screen: screen, pygame.display
+        color: color
+        x: x coordinate
+        y: y coordinate
+        l: length, float
+        w: width, float
+
+        Keyword arguments:
+        y_up: higher point, int
+        y_down: lower point, int
+        x_left: leftmost point, int
+        x_right: rightmost point, int
+        """
         self.screen = screen
         self.x = x
         self.y = y
@@ -28,10 +40,13 @@ class Platform:
         self.y_down = y_down
         self.vx = 2
         self.vy = 2
-        self.phi = choice([math.pi/2, 0])
         self.color = color
 
     def precollision(self, obj):
+        """Function that checks whether collision be in he next frame
+
+        obj: ball, Ball
+        """
         if self.x - self.w/2 - obj.r + obj.vx < obj.x < self.x - self.w/2 - obj.r and self.y + self.l/2 > obj.y-obj.vy/obj.vx*(self.x-self.w/2-obj.r-obj.x) > self.y - self.l/2:
             obj.vx = -1*(self.x - self.w/2 - obj.r - obj.x)
             return True
@@ -46,6 +61,10 @@ class Platform:
             return True
 
     def collision(self, obj):
+        """Collision with ball
+
+        obj: ball, Ball
+        """
         if abs(obj.x - self.x) <= self.w/2 + obj.r and abs(obj.y - self.y) <=  self.l/2 + obj.r:
             if (abs(self.x - obj.x) < (self.w/2 + obj.r)) and (abs(self.x - obj.x) > self.w/2):
                 obj.x = self.x - (self.w/2 + obj.r) * sign(obj.vx)
@@ -57,21 +76,20 @@ class Platform:
     #Тут возникает проблема при нулевой скрости и на углах. По какой-то причине шарик не прилипает
     #Иногда случаются баги и шар "проваливается" внутрь платформы
     def draw(self):
+        """Draw platform"""
         pygame.draw.rect(self.screen,
                          self.color,
                          (self.x - self.w/2, self.y - self.l/2,
                           self.w, self.l))
-    """
-    Это функция движения по вертикали
-    """
+
     def move_vertically(self):
+        """Vertical movement"""
         self.y += self.vy
         if self.y <= self.y_up or self.y >= self.y_down:
             self.vy *= -1
-    """
-    Это функция движения по горизонтали
-    """
+
     def move_horizontally(self):
+        """Horizontal movement"""
         self.x += self.vx
         if self.x <= self.x_left or self.x >= self.x_right:
             self.vx *= -1

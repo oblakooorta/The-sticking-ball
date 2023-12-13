@@ -1,6 +1,4 @@
 import pygame
-from random import choice
-import math
 
 from Platforms import Platform
 
@@ -12,8 +10,6 @@ BLACK = (0, 0, 0)
 GREEN = 0x00FF00
 MAGENTA = 0xFF03B8
 CYAN = 0x00FFCC
-BLACK = (0, 0, 0)
-WHITE = 0xFFFFFF
 GREY = 0x7D7D7D
 
 WIDTH = 1280
@@ -82,4 +78,3 @@ death.append(Platform(screen, color=BLACK, x=1250, y=360, w=20, l=680))
 death.append(Platform(screen, color=BLACK, x=1020, y=210, w=20, l=380))
 
 elastic.append(Platform(screen, color=GREEN, x=900, y=280, w=40, l=100))
-
