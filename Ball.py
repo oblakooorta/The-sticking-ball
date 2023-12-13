@@ -17,8 +17,8 @@ class Ball:
 
         """
         self.screen = screen
-        self.sx = x
-        self.sy = y
+        self.__sx = x
+        self.__sy = y
         self.x = x
         self.y = y
         self.r = 20
@@ -105,8 +105,8 @@ class Ball:
     def return_to_start(self):
         """Return to start from deadly platform"""
         self.sticked = False
-        self.x = self.sx
-        self.y = self.sy
+        self.x = self.__sx
+        self.y = self.__sy
         self.vx = self.vy = 0
 
     def move_v(self, obj):
