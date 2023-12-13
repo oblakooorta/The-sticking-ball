@@ -48,16 +48,20 @@ class Platform:
 
         obj: ball, Ball
         """
-        if self.x - self.w/2 - obj.r + obj.vx < obj.x < self.x - self.w/2 - obj.r and self.y + self.L/2 > obj.y-obj.vy/obj.vx*(self.x-self.w/2-obj.r-obj.x) > self.y - self.L/2:
+        if (self.x - self.w/2 - obj.r + obj.vx < obj.x < self.x - self.w/2 - obj.r and
+                self.y + self.L/2 > obj.y-obj.vy/obj.vx*(self.x-self.w/2-obj.r-obj.x) > self.y - self.L/2):
             obj.vx = -1*(self.x - self.w/2 - obj.r - obj.x)
             return True
-        elif self.x + self.w/2 + obj.r + obj.vx > obj.x > self.x + self.w/2 + obj.r and self.y + self.L/2 > obj.y-obj.vy/obj.vx*(self.x+self.w/2+obj.r-obj.x) > self.y - self.L/2:
+        elif (self.x + self.w/2 + obj.r + obj.vx > obj.x > self.x + self.w/2 + obj.r and
+              self.y + self.L/2 > obj.y-obj.vy/obj.vx*(self.x+self.w/2+obj.r-obj.x) > self.y - self.L/2):
             obj.vx = -1*(self.x + self.w/2 + obj.r - obj.x)
             return True
-        elif self.y - self.L/2 - obj.r + obj.vy < obj.y < self.y - self.L/2 - obj.r and self.x + self.w/2 > obj.x-obj.vx/obj.vy*(self.y-self.L/2-obj.r-obj.y) > self.x - self.w/2:
+        elif (self.y - self.L/2 - obj.r + obj.vy < obj.y < self.y - self.L/2 - obj.r and
+              self.x + self.w/2 > obj.x-obj.vx/obj.vy*(self.y-self.L/2-obj.r-obj.y) > self.x - self.w/2):
             obj.vy = -1*(self.y - self.L/2 - obj.r - obj.y)
             return True
-        elif self.y + self.L/2 + obj.r + obj.vy > obj.y > self.y + self.L/2 + obj.r and self.x + self.w/2 > obj.x-obj.vx/obj.vy*(self.y+self.L/2+obj.r-obj.y) > self.x - self.w/2:
+        elif (self.y + self.L/2 + obj.r + obj.vy > obj.y > self.y + self.L/2 + obj.r and
+              self.x + self.w/2 > obj.x-obj.vx/obj.vy*(self.y+self.L/2+obj.r-obj.y) > self.x - self.w/2):
             obj.vy = -1*(self.y - self.L/2 - obj.r - obj.y)
             return True
 
@@ -66,16 +70,16 @@ class Platform:
 
         obj: ball, Ball
         """
-        if abs(obj.x - self.x) <= self.w/2 + obj.r and abs(obj.y - self.y) <=  self.L/2 + obj.r:
+        if abs(obj.x - self.x) <= self.w/2 + obj.r and abs(obj.y - self.y) <= self.L/2 + obj.r:
             if (abs(self.x - obj.x) < (self.w/2 + obj.r)) and (abs(self.x - obj.x) > self.w/2):
                 obj.x = self.x - (self.w/2 + obj.r) * sign(obj.vx)
             if (abs(self.y - obj.y) < (self.L/2 + obj.r)) and (abs(self.y - obj.y) > self.L/2):
                 obj.y = self.y + (self.L/2 + obj.r) * sign(obj.vy)
             obj.sticked = True
             return True
-    #FIXME
-    #Тут возникает проблема при нулевой скрости и на углах. По какой-то причине шарик не прилипает
-    #Иногда случаются баги и шар "проваливается" внутрь платформы
+    # FIXME
+    # Тут возникает проблема при нулевой скрости и на углах. По какой-то причине шарик не прилипает
+    # Иногда случаются баги и шар "проваливается" внутрь платформы
 
     def draw(self):
         """Draw platform"""
