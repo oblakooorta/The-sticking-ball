@@ -43,7 +43,7 @@ class Platform:
         self.vy = 2
         self.color = color
 
-    def precollision(self, obj):
+    '''def precollision(self, obj):
         """Function that checks whether collision be in the next frame
 
         obj: ball, Ball
@@ -64,19 +64,16 @@ class Platform:
               self.x + self.w/2 > obj.x-obj.vx/obj.vy*(self.y+self.L/2+obj.r-obj.y) > self.x - self.w/2):
             obj.vy = -1*(self.y - self.L/2 - obj.r - obj.y)
             return True
+        '''
 
     def collision(self, obj):
         """Collision with ball
 
         obj: ball, Ball
         """
-        if abs(obj.x - self.x) <= self.w/2 + obj.r and abs(obj.y - self.y) <= self.L/2 + obj.r:
-            if (abs(self.x - obj.x) < (self.w/2 + obj.r)) and (abs(self.x - obj.x) > self.w/2):
-                obj.x = self.x - (self.w/2 + obj.r) * sign(obj.vx)
-            if (abs(self.y - obj.y) < (self.L/2 + obj.r)) and (abs(self.y - obj.y) > self.L/2):
-                obj.y = self.y + (self.L/2 + obj.r) * sign(obj.vy)
-            obj.sticked = True
-            return True
+        if abs(obj.x - self.x) <= self.w/2 + obj.r or abs(self.y - obj.y) <= (self.L/2 + obj.r):
+                return True
+                obj.sticked = True
     # FIXME
     # Тут возникает проблема при нулевой скрости и на углах. По какой-то причине шарик не прилипает
     # Иногда случаются баги и шар "проваливается" внутрь платформы

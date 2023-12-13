@@ -64,34 +64,34 @@ while not finished:
         for mov in moving_v:
             mov.draw()
             mov.move_vertically()
-            mov.precollision(ball)
+            'mov.precollision(ball)'
             if mov.collision(ball):
-                ball.sticking()
+                ball.sticking(mov)
                 ball.move_v(mov)
 
         for mov in moving_h:
             mov.draw()
             mov.move_horizontally()
-            mov.precollision(ball)
+            'mov.precollision(ball)'
             if mov.collision(ball):
-                ball.sticking()
+                ball.sticking(mov)
                 ball.move_h(mov)
 
         for pl in platforms:
             pl.draw()
-            pl.precollision(ball)
+            'pl.precollision(ball)'
             if pl.collision(ball):
-                ball.sticking()
+                ball.sticking(pl)
 
         for el in elastic:
             el.draw()
-            el.precollision(ball)
+            'el.precollision(ball)'
             if el.collision(ball):
                 ball.jumping_back(el)
 
         for dis in disappearing:
             dis.draw()
-            dis.precollision(ball)
+            'dis.precollision(ball)'
             if dis.collision(ball):
                 disappearing.remove(dis)
                 ball.fall()

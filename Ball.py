@@ -3,6 +3,14 @@ import math
 
 BLACK = (0, 0, 0)
 
+def sign(x):
+    if x > 0:
+        return 1
+    elif x == 0:
+        return 0
+    else:
+        return -1
+
 class Ball:
     """
     Ball is the main character of our game which has to
@@ -26,6 +34,7 @@ class Ball:
         self.vy = 0
         self.__color = BLACK
         self.sticked = False
+        self.start = False
 
     def move(self):
         """Move ball if it's not sticked"""
@@ -79,9 +88,14 @@ class Ball:
             self.vx = obj.f2_power * math.cos(self.an)
             self.vy = - obj.f2_power * math.sin(self.an)
 
-    def sticking(self):
+    def sticking(self, obj):
         """Sticking to normal platform"""
         if self.sticked:
+            if abs(obj.x - self.x) < obj.w/2 + self.r:
+                self.x = self.x - (obj.w/2 + self.r) * sign(self.vx)
+            if abs(self.y - obj.y) < (obj.L/2 + self.r):
+                self.y = self.y - (obj.L/2 + self.r)
+            self.start = True
             self.vx = 0
             self.vy = 0
 
@@ -93,7 +107,7 @@ class Ball:
         if self.sticked:
             if abs(self.x - obj.x) <= obj.w/2:
                 self.vy = -1.2 * self.vy
-            if abs(self.y - obj.y) <= obj.l/2:
+            if abs(self.y - obj.y) <= obj.L/2:
                 self.vx = -1.2 * self.vx
             self.sticked = False
 
