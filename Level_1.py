@@ -1,6 +1,6 @@
 import pygame
 
-from Platforms import Platform
+from Platforms import Platform, MovingPlatform
 
 RED = 0xFF0000
 BLUE = 0x0000FF
@@ -54,11 +54,10 @@ elastic.append(Platform(screen, GREEN, 840, 685, 150, 30))
 elastic.append(Platform(screen, GREEN, 1000, 70, 150, 30))
 
 
-moving_v.append(Platform(screen, CYAN, 150, 250, 100, 30, y_up=200, y_down=350))
-moving_v.append(Platform(screen, CYAN, 750, 300, 30, 100, y_up=100, y_down=400))
+moving_v.append(MovingPlatform(screen, CYAN, 150, 250, 100, 30, y_up=200, y_down=350))
+moving_v.append(MovingPlatform(screen, CYAN, 750, 300, 30, 100, y_up=100, y_down=400))
 
-
-moving_h.append(Platform(screen, CYAN, 200, 100, 100, 30, x_left=150, x_right=500))
+moving_h.append(MovingPlatform(screen, CYAN, 200, 100, 100, 30, x_left=150, x_right=500))
 
 
 death.append(Platform(screen, BLACK, 300, 50, 560, 30))
