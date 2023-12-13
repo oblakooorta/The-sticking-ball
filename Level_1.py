@@ -20,43 +20,16 @@ y_started = 670
 x_end = 1150
 y_end = 600
 
-"""
-Это обычные платформы
-"""
 platforms = []
-"""
-Это упругие платформы
-"""
 elastic = []
-"""
-Это исчезающие платформы
-"""
 disappearing = []
-
-"""
-Это движущиеся вертикально платформы
-"""
-
 moving_v = []
-
-"""
-Это двигающиеся горизонтально платформы
-"""
 moving_h = []
-
-
-"""
-Это платформы смерти
-"""
-
 death = []
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-"""
-Границы
-"""
 platforms.append(Platform(screen, RED, 640, 710, 1280, 20))
 platforms.append(Platform(screen, RED, 640, 10, 1280, 20))
 platforms.append(Platform(screen, RED, 10, 360, 20, 720))

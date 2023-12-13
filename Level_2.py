@@ -14,42 +14,17 @@ GREY = 0x7D7D7D
 
 WIDTH = 1280
 HEIGHT = 720
-"""
-Это обычные платформы
-"""
+
 platforms = []
-"""
-Это упругие платформы
-"""
 elastic = []
-"""
-Это исчезающие платформы
-"""
 disappearing = []
-
-"""
-Это движущиеся вертикально платформы
-"""
-
 moving_v = []
-
-"""
-Это двигающиеся горизонтально платформы
-"""
 moving_h = []
-
-"""
-Это платформы смерти
-"""
-
 death = []
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-"""
-Границы
-"""
 platforms.append(Platform(screen, color=RED, x=640, y=710, w=1280, l=20))
 platforms.append(Platform(screen, color=RED, x=640, y=10, w=1280, l=20))
 platforms.append(Platform(screen, color=RED, x=10, y=360, w=20, l=720))
