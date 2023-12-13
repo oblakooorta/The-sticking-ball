@@ -1,9 +1,7 @@
 import pygame
 
-import Level_1
 from Ball import Ball
 from Guidance import Guidance
-from Platforms import Platform
 from Goal import Goal
 from Menu import Menu
 from Level_1 import platforms
