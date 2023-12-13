@@ -1,6 +1,6 @@
 import pygame
 
-GREY = 0x7D7D7D
+YELLOW = (255, 255, 0)
 
 
 class Goal:
@@ -18,7 +18,7 @@ class Goal:
         self.x = x
         self.y = y
         self.r = 20
-        self.color = GREY
+        self.color = YELLOW
     
     def collision(self, obj):
         """collision with ball
