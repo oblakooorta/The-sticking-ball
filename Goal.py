@@ -18,7 +18,7 @@ class Goal:
         self.x = x
         self.y = y
         self.r = 20
-        self.color = YELLOW
+        self.__color = YELLOW
     
     def collision(self, obj):
         """collision with ball
@@ -31,7 +31,7 @@ class Goal:
     def draw(self):
         """Draw a goal"""
         pygame.draw.polygon(self.screen,
-                            self.color,
+                            self.__color,
                             [[self.x - self.r * 3**0.5 / 2, self.y - self.r / 2],
                              [self.x + self.r * 3**0.5 / 2, self.y - self.r / 2],
                              [self.x, self.y + self.r]])

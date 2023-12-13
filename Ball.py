@@ -24,7 +24,7 @@ class Ball:
         self.r = 20
         self.vx = 0
         self.vy = 0
-        self.color = BLACK
+        self.__color = BLACK
         self.sticked = False
 
     def move(self):
@@ -62,7 +62,7 @@ class Ball:
         """Draw a ball"""
         pygame.draw.circle(
             self.screen,
-            self.color,
+            self.__color,
             (self.x, self.y),
             self.r
         )
