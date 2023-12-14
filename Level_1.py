@@ -16,7 +16,7 @@ WIDTH = 1280
 HEIGHT = 720
 
 x_started = 150
-y_started = 670
+y_started = 650
 x_end = 1150
 y_end = 600
 
@@ -61,6 +61,6 @@ moving_h.append(MovingPlatform(screen, CYAN, 200, 100, 100, 30, x_left=150, x_ri
 
 
 death.append(Platform(screen, BLACK, 300, 50, 560, 30))
-death.append(Platform(screen, BLACK, 550, 485, 270, 30))
+'death.append(Platform(screen, BLACK, 550, 485, 270, 30))'
 death.append(Platform(screen, BLACK, 935, 335, 100, 30))
 death.append(Platform(screen, BLACK, 1030, 550, 30, 100))

@@ -88,16 +88,17 @@ class Ball:
             self.vx = obj.f2_power * math.cos(self.an)
             self.vy = - obj.f2_power * math.sin(self.an)
 
-    def sticking(self, obj):
+    def sticking(self):
         """Sticking to normal platform"""
         if self.sticked:
-            if abs(obj.x - self.x) < obj.w/2 + self.r:
-                self.x = self.x - (obj.w/2 + self.r) * sign(self.vx)
-            if abs(self.y - obj.y) < (obj.L/2 + self.r):
-                self.y = self.y - (obj.L/2 + self.r)
-            self.start = True
+            '''if abs(obj.x - self.x) < (obj.w/2 + self.r):
+                self.x = obj.x - (obj.w/2 + self.r) * sign(self.vx)
+            elif abs(self.y - obj.y) < (obj.L/2 + self.r):
+                self.y = obj.y - (obj.L/2 + self.r) * sign(self.vy)
+            self.start = True'''
             self.vx = 0
             self.vy = 0
+
 
     def jumping_back(self, obj):
         """Jumping back from elastic platform

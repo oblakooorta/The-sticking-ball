@@ -27,7 +27,7 @@ class Guidance:
 
         obj: ball, Ball
         """
-        if obj.start:
+        if obj.sticked:
             self.f2_on = True
 
     def fire2_end(self):
