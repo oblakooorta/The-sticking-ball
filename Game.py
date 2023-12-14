@@ -223,6 +223,14 @@ while not win_L2:
             elif win_L1:
                 ball_2.jump(event, arrow_2)
                 arrow_2.fire2_end(ball_2)
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_r:
+                if not win_L1:
+                    ball_1.x = x_started1
+                    ball_1.y = y_started1
+                elif win_L1:
+                    ball_2.x = x_started2
+                    ball_2.y = y_started2
     if not win_L1:
         arrow_1.power_up()
     elif win_L1:
