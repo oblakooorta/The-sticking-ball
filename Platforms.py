@@ -60,7 +60,6 @@ class Platform:
         elif (self.y + self.L/2 + obj.r + obj.vy > obj.y >= self.y + self.L/2 + obj.r and
             self.x + self.w/2 > obj.x-obj.vx/obj.vy*(self.y+self.L/2+obj.r-obj.y) > self.x - self.w/2):
             obj.vy = -1*(self.y - self.L/2 - obj.r - obj.y)
-            print(4)
 
 
     def collision(self, obj):
