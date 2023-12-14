@@ -44,7 +44,7 @@ class Platform:
         self.color = color
 
     def precollision(self, obj):
-        """Function that checks whether collision be in the next frame
+        """Function that checks whether collision will happen in the next frame
 
         obj: ball, Ball
         """
