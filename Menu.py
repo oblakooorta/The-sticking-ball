@@ -21,6 +21,7 @@ class Menu:
         self.rect = pygame.Rect(x, y, width, height)
         self.color = color
         self.text = text
+        self.drawn = False
 
     def draw(self, screen):
         """Draw button
@@ -32,3 +33,4 @@ class Menu:
         text = font.render(self.text, True, BLACK)
         text_rect = text.get_rect(center=self.rect.center)
         screen.blit(text, text_rect)
+        self.drawn = True

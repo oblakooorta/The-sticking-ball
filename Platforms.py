@@ -48,27 +48,19 @@ class Platform:
 
         obj: ball, Ball
         """
-        if (self.x - self.w/2 - obj.r + obj.vx < obj.x < self.x - self.w/2 - obj.r and
-                self.y + self.L/2 > obj.y-obj.vy/obj.vx*(self.x-self.w/2-obj.r-obj.x) > self.y - self.L/2):
-            #obj.vx = -1*(self.x - self.w/2 - obj.r - obj.x)
-            print('1')
-            #return True
-        elif (self.x + self.w/2 + obj.r + obj.vx > obj.x > self.x + self.w/2 + obj.r and
-              self.y + self.L/2 > obj.y-obj.vy/obj.vx*(self.x+self.w/2+obj.r-obj.x) > self.y - self.L/2):
-            #obj.vx = -1*(self.x + self.w/2 + obj.r - obj.x)
-            print('1')
-            #return True
-        elif (self.y - self.L/2 - obj.r + obj.vy < obj.y < self.y - self.L/2 - obj.r and
-              self.x + self.w/2 > obj.x-obj.vx/obj.vy*(self.y-self.L/2-obj.r-obj.y) > self.x - self.w/2):
-            #obj.vy = -1*(self.y - self.L/2 - obj.r - obj.y)
-            print('1')
-            #return True
-        elif (self.y + self.L/2 + obj.r + obj.vy > obj.y > self.y + self.L/2 + obj.r and
-              self.x + self.w/2 > obj.x-obj.vx/obj.vy*(self.y+self.L/2+obj.r-obj.y) > self.x - self.w/2):
-            #obj.vy = -1*(self.y - self.L/2 - obj.r - obj.y)
-            print('1')
-            #return True
-
+        if (self.x - self.w/2 - obj.r + obj.vx < obj.x <= self.x - self.w/2 - obj.r and
+            self.y + self.L/2 > obj.y-obj.vy/obj.vx*(self.x-self.w/2-obj.r-obj.x) > self.y - self.L/2):
+            obj.vx = -1*(self.x + self.w/2 + obj.r - obj.x)
+        elif (self.x + self.w/2 + obj.r + obj.vx > obj.x >= self.x + self.w/2 + obj.r and
+            self.y + self.L/2 > obj.y-obj.vy/obj.vx*(self.x+self.w/2+obj.r-obj.x) > self.y - self.L/2):
+            obj.vx = -1*(self.x - self.w/2 - obj.r - obj.x)
+        elif (self.y - self.L/2 - obj.r + obj.vy < obj.y <= self.y - self.L/2 - obj.r and
+            self.x + self.w/2 > obj.x-obj.vx/obj.vy*(self.y-self.L/2-obj.r-obj.y) > self.x - self.w/2):
+            obj.vy = -1*(self.y - self.L/2 - obj.r - obj.y)
+        elif (self.y + self.L/2 + obj.r + obj.vy > obj.y >= self.y + self.L/2 + obj.r and
+            self.x + self.w/2 > obj.x-obj.vx/obj.vy*(self.y+self.L/2+obj.r-obj.y) > self.x - self.w/2):
+            obj.vy = -1*(self.y - self.L/2 - obj.r - obj.y)
+            print(4)
 
 
     def collision(self, obj):
@@ -76,11 +68,6 @@ class Platform:
 
         obj: ball, Ball
         """
-        '''if (abs(obj.x - self.x) <= self.w/2 + obj.r) or (abs(self.y - obj.y) <= (self.L/2 + obj.r)):
-            return True
-            obj.sticked = True
-            print('sticked')
-            '''
         if abs(obj.x - self.x) <= self.w / 2 + obj.r and abs(obj.y - self.y) <= self.L / 2 + obj.r:
             if (abs(self.x - obj.x) < (self.w / 2 + obj.r)) and (abs(self.x - obj.x) > self.w / 2):
                 obj.x = self.x - (self.w / 2 + obj.r) * sign(obj.vx)
@@ -88,6 +75,7 @@ class Platform:
                 obj.y = self.y + (self.L / 2 + obj.r) * sign(obj.vy)
             obj.sticked = True
             return True
+
     # FIXME
     # Тут возникает проблема при нулевой скрости и на углах. По какой-то причине шарик не прилипает
     # Иногда случаются баги и шар "проваливается" внутрь платформы

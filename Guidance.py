@@ -30,10 +30,11 @@ class Guidance:
         if obj.sticked:
             self.f2_on = True
 
-    def fire2_end(self):
+    def fire2_end(self, obj):
         """Stop charging"""
         self.f2_on = False
         self.f2_power = 10
+        obj.sticked = False
 
     def targetting(self, event):
         """Set a direction of arrow
@@ -46,7 +47,7 @@ class Guidance:
     def power_up(self):
         """Continue charging"""
         if self.f2_on:
-            if self.f2_power < 50:
+            if self.f2_power < 30:
                 self.f2_power += 0.5
                 
     def update(self, obj):

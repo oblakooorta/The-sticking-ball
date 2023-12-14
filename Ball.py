@@ -91,11 +91,6 @@ class Ball:
     def sticking(self):
         """Sticking to normal platform"""
         if self.sticked:
-            '''if abs(obj.x - self.x) < (obj.w/2 + self.r):
-                self.x = obj.x - (obj.w/2 + self.r) * sign(self.vx)
-            elif abs(self.y - obj.y) < (obj.L/2 + self.r):
-                self.y = obj.y - (obj.L/2 + self.r) * sign(self.vy)
-            self.start = True'''
             self.vx = 0
             self.vy = 0
 
@@ -106,7 +101,7 @@ class Ball:
         obj: platform, Platform
         """
         if self.sticked:
-            if abs(self.x - obj.x) <= obj.w/2:
+            if abs(self.x - obj.x) <= obj.w/2 + self.r:
                 self.vy = -1.2 * self.vy
             if abs(self.y - obj.y) <= obj.L/2:
                 self.vx = -1.2 * self.vx
